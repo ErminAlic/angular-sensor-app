@@ -1,0 +1,29 @@
+.flex-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px 10px 30px;
+    background-color: rgba(14, 41, 129, 0.664);
+}
+
+h1 {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+img {
+    width: 40px;
+}
+
+.right-menu-section {
+    margin-left: auto;
+}
+
+a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        color: #ffa500;
+    }
+}

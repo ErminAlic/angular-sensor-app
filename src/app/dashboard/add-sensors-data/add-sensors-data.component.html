@@ -1,0 +1,50 @@
+<app-button
+  color="{{ showAddTask ? 'red' : 'green' }}"
+  text="{{ showAddTask ? 'Close' : 'Add' }}"
+  (btnClick)="toggleAddTask()"
+></app-button>
+<form [formGroup]="sensorenDataForm" (ngSubmit)="onSubmit()" *ngIf="showAddTask">
+
+  <mat-card>
+    <mat-card-title>Neuen Messwert hinzufügen</mat-card-title>
+    
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Sensor auswählen</mat-label>
+            <mat-select [formControl]="sensorId">
+        <mat-option *ngFor="let item of storeService.sensoren" 
+        [value]="item.id">{{item?.name}}
+        </mat-option>
+        </mat-select>
+        <mat-error *ngIf="sensorId.hasError('required')">Dies ist ein Pflichtfeld!</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Datum auswählen</mat-label>
+        <mat-hint align="end">mm.dd.yyyy</mat-hint>
+        <input matInput type="date" [formControl]="date" required>
+        <mat-error *ngIf="date.hasError('required')">Dies ist ein Pflichtfeld!</mat-error>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Temperatur</mat-label>
+      <input matInput type="number" placeholder="in Grad" [formControl]="temperature" step="0.1" required>
+      <mat-error *ngIf="temperature.hasError('required')">Dies ist ein Pflichtfeld!</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Luftfeuchtigkeit</mat-label>
+      <input matInput type="number" placeholder="in %" [formControl]="humidity" required>
+      <mat-hint align="end">negativer Wert nicht erlaubt</mat-hint>
+      <mat-error *ngIf="humidity.hasError('required')">Dies ist ein Pflichtfeld!</mat-error>
+      <mat-error *ngIf="humidity.hasError('min')">Darf nicht unter 0 sein!</mat-error>
+      <mat-error *ngIf="humidity.hasError('max')">Kann nicht mehr wie 100 sein!</mat-error>
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button color class="btn" type="submit">
+      Erfassen
+    </button>
+  </mat-card-content>
+</mat-card>
+
+  </form>

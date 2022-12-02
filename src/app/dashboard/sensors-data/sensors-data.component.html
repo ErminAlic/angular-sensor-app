@@ -1,0 +1,48 @@
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="sensor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Sensor </th>
+      <td mat-cell *matCellDef="let element"> {{element.sensor?.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Datum </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Temperatur </th>
+      <td mat-cell *matCellDef="let element"> {{element.temperature}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="humidity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Luftfeuchtigkeit </th>
+      <td mat-cell *matCellDef="let element"> {{element.humidity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Standort </th>
+        <td mat-cell *matCellDef="let element"> {{element.sensor?.location}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="position" >
+        <th mat-header-cell *matHeaderCellDef > Position </th>
+        <td mat-cell *matCellDef="let element"> {{ SensorPosition[element.sensor.position] }}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Löschen </th>
+        <td mat-cell *matCellDef="let element">
+          
+           <mat-icon *ngIf="deleting != element.id" (click)="deleteSensordata(element.id)">delete</mat-icon>
+           <mat-spinner style="margin: auto;" [diameter]="25" *ngIf="deleting == element.id"></mat-spinner></td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page">
+  </mat-paginator>
